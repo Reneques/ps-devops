@@ -1,0 +1,18 @@
+version: "3"
+services:
+  db_pgsql:
+    image: postgres
+    restart: always
+    ports:
+    - 5432:5432
+    networks:
+    - mу-pg-network
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=123987
+    volumes:
+    - /home/${USER}/db/:/var/lib/postgresql/data
+
+networks:
+  mу-pg-network:
+    driver: bridge
