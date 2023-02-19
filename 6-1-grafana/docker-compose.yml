@@ -1,0 +1,18 @@
+version: "3"
+services:
+  grafana:
+    container_name: grafana
+    user: root
+    image: grafana/grafana-oss:main
+    restart: always
+    ports:
+    - "3000:3000"
+    volumes:
+    - /opt/grafana/var/lib/grafana/:/var/lib/grafana/
+    - /opt/grafana/var/lib/grafana/plugins/:/var/lib/grafana/plugins/
+    - /opt/grafana/etc/grafana/datasources/:/etc/grafana/datasources/
+    - /opt/grafana/etc/grafana/dashboards/:/etc/grafana/dashboards/
+    environment:
+    - GF_SECURITY_ADMIN_USER=admin
+    - GF_SECURITY_ADMIN_PASSWORD=123987
+
