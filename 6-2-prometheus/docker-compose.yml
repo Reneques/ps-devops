@@ -1,0 +1,33 @@
+version: "3"
+services:
+  grafana:
+    container_name: grafana
+    user: grafana:root
+    image: grafana/grafana-oss:main
+    restart: always
+    ports:
+    - "3000:3000"
+    volumes:
+    - grafana:/var/lib/grafana/
+    - grafana-plugins:/var/lib/grafana/plugins/
+    - grafana-datasources:/etc/grafana/datasources/
+    - grafana-dashboards:/etc/grafana/dashboards/
+    environment:
+    - GF_SECURITY_ADMIN_USER=admin
+    - GF_SECURITY_ADMIN_PASSWORD=123987
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:main
+    restart: always
+    ports:
+    - "9090:9090"
+    volumes:
+    - etc-prometheus:/etc/prometheus/
+    - prometheus:/prometheus
+volumes:
+  prometheus:
+  etc-prometheus:
+  grafana:
+  grafana-plugins:
+  grafana-datasources:
+  grafana-dashboards:
