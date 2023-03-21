@@ -1,0 +1,24 @@
+- name: nginx
+  hosts: tester-s01
+  tasks:
+  - name: Create container
+    community.docker.docker_container:
+      image: nginx:latest
+      name: nginx
+      state: started
+      restart: yes
+      ports:
+      - 8081:80
+      exposed_ports:
+      - 8081
+  - name: Copy nginx_conf
+    community.docker.docker_container_copy_into:
+      container: nginx
+      path: /home/shirokov/study/ps-devops/10-nginx-playbook/nginx.conf
+      container_path: /etc/nginx/conf.d/default.conf
+  - name: Copy 404 page
+    community.docker.docker_container_copy_into:
+      container: nginx
+      path: /home/shirokov/study/ps-devops/10-nginx-playbook/index.html
+      container_path: /usr/share/nginx/html/index.html
+
